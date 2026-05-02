@@ -22,6 +22,8 @@
     "IsHide": false,
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/ryankhart/SimpleTweaksPlugin/releases/download/installable/latest.zip",
-    "DownloadLinkUpdate": "https://github.com/ryankhart/SimpleTweaksPlugin/releases/download/installable/latest.zip"
+    "DownloadLinkUpdate": "https://github.com/ryankhart/SimpleTweaksPlugin/releases/download/installable/latest.zip",
+    "DownloadCount": 0,
+    "LastUpdate": "1777699161"
   }
 ]
