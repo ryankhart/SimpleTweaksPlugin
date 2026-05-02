@@ -1,0 +1,7 @@
+name: Simple Tweaks Fork
+author: Ryan Khart / Caraxi
+description: |-
+  A fork of Simple Tweaks that tracks latest-patch compatibility ahead of upstream releases.
+  All changes are toggleable, with everything disabled by default.
+punchline: Simple Tweaks, ahead of upstream.
+repo_url: https://github.com/ryankhart/SimpleTweaksPlugin
