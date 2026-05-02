@@ -47,6 +47,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          $package = Get-ChildItem -Path . -Filter latest.zip -Recurse | Select-Object -First 1 -ExpandProperty FullName
+          if (-not $package) {
+            throw "Unable to find latest.zip after build."
+          }
+
           $releaseNotes = @"
           Installable fork build from `${{ github.sha }}`.
 
@@ -56,9 +61,9 @@ jobs:
 
           gh release view installable --repo ${{ github.repository }} *> $null
           if ($LASTEXITCODE -ne 0) {
-            gh release create installable ./bin/Debug/latest.zip --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
+            gh release create installable $package --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
           }
           else {
-            gh release upload installable ./bin/Debug/latest.zip --repo ${{ github.repository }} --clobber
+            gh release upload installable $package --repo ${{ github.repository }} --clobber
             gh release edit installable --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
           }
