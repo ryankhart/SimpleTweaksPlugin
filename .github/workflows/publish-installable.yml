@@ -56,9 +56,9 @@ jobs:
 
           gh release view installable --repo ${{ github.repository }} *> $null
           if ($LASTEXITCODE -ne 0) {
-            gh release create installable ./bin/x64/Debug/SimpleTweaksPlugin/latest.zip --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
+            gh release create installable ./bin/Debug/latest.zip --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
           }
           else {
-            gh release upload installable ./bin/x64/Debug/SimpleTweaksPlugin/latest.zip --repo ${{ github.repository }} --clobber
+            gh release upload installable ./bin/Debug/latest.zip --repo ${{ github.repository }} --clobber
             gh release edit installable --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
           }
