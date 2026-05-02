@@ -1,0 +1,64 @@
+name: Publish Installable Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-2022
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-prerelease: true
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet Packages
+        run: nuget restore dev/SimpleTweaksPlugin.Dev.sln
+
+      - name: Download Dalamud stable
+        run: |
+          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile latest.zip
+          Expand-Archive -Force latest.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
+
+      - name: Download Dalamud staging
+        run: |
+          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/stg/latest.zip -OutFile latest-stg.zip
+          Expand-Archive -Force latest-stg.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
+
+      - name: Build installable package
+        run: msbuild dev/SimpleTweaksPlugin.Dev.sln /p:Configuration=Debug
+
+      - name: Publish rolling release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $releaseNotes = @"
+          Installable fork build from `${{ github.sha }}`.
+
+          Custom repo URL:
+          https://raw.githubusercontent.com/ryankhart/SimpleTweaksPlugin/main/pluginmaster.json
+          "@
+
+          gh release view installable --repo ${{ github.repository }} *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create installable ./bin/x64/Debug/SimpleTweaksPlugin/latest.zip --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
+          }
+          else {
+            gh release upload installable ./bin/x64/Debug/SimpleTweaksPlugin/latest.zip --repo ${{ github.repository }} --clobber
+            gh release edit installable --repo ${{ github.repository }} --title "Installable Build" --notes $releaseNotes
+          }
