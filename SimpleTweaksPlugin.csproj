@@ -1,5 +1,6 @@
 <Project Sdk="Dalamud.NET.Sdk/15.0.0">
     <PropertyGroup>
+        <AssemblyName>SimpleTweaksFork</AssemblyName>
         <Version>1.14.1.0</Version>
         <Configurations>Debug;Release;DebugSteamDeck;CustomCS;Test</Configurations>
         <NoWarn>CS0649,CS0414,CS8618</NoWarn>

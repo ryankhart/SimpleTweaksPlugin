@@ -1,7 +1,7 @@
-name: Simple Tweaks Plugin
-author: Caraxi
+name: Simple Tweaks Fork
+author: Ryan Khart / Caraxi
 description: |-
-  A collection of Quality of Life tweaks. Aiming to improve the experience without changing anything drastically.
-  All changes are toggleable, with everything disabled by default. Visit the Repo for a full list of tweaks. (Globe icon below)
-punchline: This was supposed to be simple...
-repo_url: https://github.com/Caraxi/SimpleTweaksPlugin
+  A fork of Simple Tweaks that tracks latest-patch compatibility ahead of upstream releases.
+  All changes are toggleable, with everything disabled by default.
+punchline: Simple Tweaks, ahead of upstream.
+repo_url: https://github.com/ryankhart/SimpleTweaksPlugin

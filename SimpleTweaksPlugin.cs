@@ -25,7 +25,7 @@ using System.Runtime.CompilerServices;
 #pragma warning disable CS0659
 namespace SimpleTweaksPlugin {
     public class SimpleTweaksPlugin : IDalamudPlugin {
-        public string Name => "Simple Tweaks";
+        public string Name => "Simple Tweaks Fork";
         public SimpleTweaksPluginConfig PluginConfig { get; private set; }
 
         public List<TweakProvider> TweakProviders = new();
